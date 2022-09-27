@@ -7,12 +7,14 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DeviceManagement_WebApp.Data;
 using DeviceManagement_WebApp.Models;
+using DeviceManagement_WebApp.Repository;
 
 namespace DeviceManagement_WebApp.Controllers
 {
     public class CategoriesController : Controller
     {
         private readonly ConnectedOfficeContext _context;
+        private CategoriesRepository _categoriesRepository = new CategoriesRepository();
 
         public CategoriesController(ConnectedOfficeContext context)
         {
@@ -22,7 +24,12 @@ namespace DeviceManagement_WebApp.Controllers
         // GET: Categories
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Category.ToListAsync());
+            CategoriesRepository CategoriesRespository = new CategoriesRepository();
+
+            var results = CategoriesRespository.Getall();
+            var categories = _categoriesRepository.Getall();
+
+            return View(results);
         }
 
         // GET: Categories/Details/5
@@ -43,6 +50,8 @@ namespace DeviceManagement_WebApp.Controllers
             return View(category);
         }
 
+        
+
         // GET: Categories/Create
         public IActionResult Create()
         {
@@ -58,7 +67,9 @@ namespace DeviceManagement_WebApp.Controllers
         {
             category.CategoryId = Guid.NewGuid();
             _context.Add(category);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
+
+            //await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
@@ -89,10 +100,12 @@ namespace DeviceManagement_WebApp.Controllers
             {
                 return NotFound();
             }
+
             try
             {
                 _context.Update(category);
-                await _context.SaveChangesAsync();
+                _context.Save();
+                //await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -109,6 +122,8 @@ namespace DeviceManagement_WebApp.Controllers
         }
 
         // GET: Categories/Delete/5
+        [HttpPost,ActionName ("Delete")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -116,8 +131,8 @@ namespace DeviceManagement_WebApp.Controllers
                 return NotFound();
             }
 
-            var category = await _context.Category
-                .FirstOrDefaultAsync(m => m.CategoryId == id);
+            var category = _categoriesRepository.GetById(id);
+
             if (category == null)
             {
                 return NotFound();
@@ -132,14 +147,25 @@ namespace DeviceManagement_WebApp.Controllers
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             var category = await _context.Category.FindAsync(id);
-            _context.Category.Remove(category);
-            await _context.SaveChangesAsync();
+            _categoriesRepository.Remove(category);
+            _categoriesRepository.Save();
+            //await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool CategoryExists(Guid id)
         {
-            return _context.Category.Any(e => e.CategoryId == id);
+            Category category = _categoriesRepository.GetById(id);
+            
+            if ( category != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+                
         }
     }
 }

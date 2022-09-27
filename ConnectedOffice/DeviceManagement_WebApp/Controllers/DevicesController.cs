@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DeviceManagement_WebApp.Data;
 using DeviceManagement_WebApp.Models;
+using DeviceManagement_WebApp.Repository;
 
 namespace DeviceManagement_WebApp.Controllers
 {
@@ -22,8 +23,10 @@ namespace DeviceManagement_WebApp.Controllers
         // GET: Devices
         public async Task<IActionResult> Index()
         {
-            var connectedOfficeContext = _context.Device.Include(d => d.Category).Include(d => d.Zone);
-            return View(await connectedOfficeContext.ToListAsync());
+            CategoriesRepository DeviceRepository = new DeviceRepository();
+
+            var results = CategoriesRepository.Getall();
+            return View(results);
         }
 
         // GET: Devices/Details/5
@@ -152,6 +155,21 @@ namespace DeviceManagement_WebApp.Controllers
         private bool DeviceExists(Guid id)
         {
             return _context.Device.Any(e => e.DeviceId == id);
+        }
+
+        private bool DeviceExists(Guid id)
+        {
+            Category device = _categoriesRepository.GetById(id);
+
+            if (category != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
         }
     }
 }
