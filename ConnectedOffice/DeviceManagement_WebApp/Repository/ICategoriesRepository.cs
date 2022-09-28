@@ -1,6 +1,12 @@
-﻿namespace DeviceManagement_WebApp.Repository
+﻿using DeviceManagement_WebApp.Models;
+using System;
+using System.Threading.Tasks;
+
+namespace DeviceManagement_WebApp.Repository
 {
-    public class ICategoriesRepository
+    public interface ICategoriesRepository : IGenericRepository<Category>
     {
+        // Category GetMostRecentCategory();    
+       // Task GetById(Guid id);
     }
 }

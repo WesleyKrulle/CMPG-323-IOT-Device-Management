@@ -13,6 +13,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DeviceManagement_WebApp.Repository;
+
 
 namespace DeviceManagement_WebApp
 {
@@ -40,7 +42,13 @@ namespace DeviceManagement_WebApp
             services.AddRazorPages();
 
             services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-            services.AddTransient<ServiceRepository>();
+            services.AddTransient<IZoneRepository, ZonesRepository>();
+            services.AddTransient<ICategoriesRepository, CategoriesRepository>();
+            services.AddTransient<IDeviceRepository, DevicesRepository>();
+
+
+
+
 
 
         }
@@ -76,4 +84,6 @@ namespace DeviceManagement_WebApp
             });
         }
     }
+
+   
 }

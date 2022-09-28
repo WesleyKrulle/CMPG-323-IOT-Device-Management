@@ -2,18 +2,17 @@
 using DeviceManagement_WebApp.Models;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using System;
 
 namespace DeviceManagement_WebApp.Repository
 {
-    public class DevicesRepository
+    public class DevicesRepository : GenericRepository<Device>, IDeviceRepository
     {
-        private readonly ConnectedOfficeContext _context = new ConnectedOfficeContext();
-
-        public List<Device> Getall()
+        public DevicesRepository(ConnectedOfficeContext context) : base(context)
         {
-            return _context.Device.ToList();
-        }
 
+        }
 
 
     }

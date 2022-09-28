@@ -1,36 +1,19 @@
 ﻿using DeviceManagement_WebApp.Data;
 using DeviceManagement_WebApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace DeviceManagement_WebApp.Repository
 {
-    public class CategoriesRepository
+    public class CategoriesRepository : GenericRepository<Category>, ICategoriesRepository
     {
-        private readonly ConnectedOfficeContext _Context = new ConnectedOfficeContext();
-        public List<Category> Getall()
+        public CategoriesRepository(ConnectedOfficeContext context) : base(context)
         {
-            return _Context.Category.ToList();
 
-            // TO DO: Add ‘Get By Id’
-            // TO DO: Add ‘Create’
-            // TO DO: Add ‘Edit’
-            // TO DO: Add ‘Delete’
-            // TO DO: Add ‘Exists’
         }
 
-        public async Task <Category> GetById(Guid? id)
-        {
-            var category = await _context.Category.FirstOrDefaultAsync(m => m.CategoryId == id);
-           
-            return View(category);
-        }
-
-        public async Task<Category> GetById(Guid? id)
-        {
-            var category = await _context.Category.FirstOrDefaultAsync(m => m.CategoryId == id);
-
-            return View(category);
-        }
+       
     }
 }
