@@ -1,7 +1,6 @@
 
 https://learn.microsoft.com/en-us/training/paths/aspnet-core-web-app/
-ASP.NET MVC Overview | Microsoft Docs
-• Secure a .NET web app with the ASP.NET Core Identity framework - Learn | Microsoft
-Docs
-• Design Patterns In C# .NET (c-sharpcorner.com)
-• Architectural Patterns in .NET (c-sharpcorner.com)
+https://learn.microsoft.com/en-us/training/modules/secure-aspnet-core-identity/
+https://www.c-sharpcorner.com/UploadFile/bd5be5/design-patterns-in-net/
+https://www.c-sharpcorner.com/uploadfile/babu_2082/architectural-patterns-in-net/
+https://learn.microsoft.com/en-us/aspnet/core/tutorials/publish-to-azure-api-management-using-vs?view=aspnetcore-6.0
