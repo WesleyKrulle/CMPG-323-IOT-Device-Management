@@ -29,7 +29,7 @@ namespace DeviceManagement_WebApp.Controllers
         }
 
         // GET: Zones/Details/5
-        public async Task<IActionResult> Details(Guid? id)
+        public async Task<IActionResult> Details(Guid id)
         {
             if (id == null)
             {
@@ -67,7 +67,7 @@ namespace DeviceManagement_WebApp.Controllers
         }
 
         // GET: Zones/Edit/5
-        public async Task<IActionResult> Edit(Guid? id)
+        public async Task<IActionResult> Edit(Guid id)
         {
             if (id == null)
             {
@@ -115,7 +115,7 @@ namespace DeviceManagement_WebApp.Controllers
         }
 
         // GET: Zones/Delete/5
-        public async Task<IActionResult> Delete(Guid? id)
+        public async Task<IActionResult> Delete(Guid id)
         {
             if (id == null)
             {
